@@ -1,0 +1,11 @@
+<h1>Home</h1>
+<p> LES GOSSIPS </p>
+<p> <% Gossip.all.each do |gossip| %>
+      <p>Ecrit part : <%= User.find(gossip.user_id.to_i).first_name %> </p>
+      <p>Titre : <%= gossip.title %> </p>
+      <p>Lien vers le gossip : <%= link_to gossip.title.to_s, "gossip/#{gossip.id}" %>
+      <br/>
+      <br/>
+    <% end %>
+</p>
+<p>Find me in app/views/home/homepage.html.erb</p>
