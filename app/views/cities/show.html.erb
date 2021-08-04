@@ -1,0 +1,16 @@
+<h1>City: <%= @city.name %></h1>
+<p>Zip Code : <%= @city.zip_code %> </p>
+
+<br/>
+<p>Les gossips:</p>
+<br/>
+
+<% @users.each do |user| %>
+  <% Gossip.where(user_id: user.id).each do |gossip| %>
+  <p>Titre : <%= gossip.title %> </p>
+  <p>Lien vers le gossip : <%= link_to gossip.title.to_s, gossip_path(gossip.id) %>
+  <p>Lien vers l'auteur : <%= link_to User.find(gossip.user_id).first_name, user_path(gossip.user_id) %>
+  <br/>
+  <br/>
+  <% end %>
+<% end %>

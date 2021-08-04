@@ -1,0 +1,18 @@
+<div class="container-fluid bg-dark me-md-3 pt-3 px-3 pt-md-2 px-md-5 text-center overflow-hidden align-center">
+<h1 class="display-5 text-white">Editer le Comment</h1>
+<p>Auteur: <%= User.find(@comment.user_id).first_name %></p>
+<p>Contenu: <%= @comment.content %></p>
+<div class="container col-7">
+    <%= form_with( url: update_comment_path(@comment.id), model: @comment, method: :put ) do |form| %>
+        <div class="mb-3">
+        <%= form.label :content, class: "form-label text-light" %>
+        <%= form.text_field :content, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+        <%= form.submit "Modifier", class: "btn btn-warning" %>
+        </div>
+    <% end%>
+    </div> 
+<p>Supprimer le comment</p>
+<p><%= link_to "Delete", destroy_comment_path(@comment.id), method: :delete, class: "btn btn-danger" %></p>
+</div>

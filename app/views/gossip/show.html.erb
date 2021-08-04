@@ -1,0 +1,57 @@
+<div class="container-fluid bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+      <div class="my-3 py-3 text-white">
+        <h1 class="display-5">Gossip : <%= @gossip.title %></h1>
+        <p class="lead">Ecrit part : <%= @user.first_name %></p>
+        <p><%= link_to "Auteur", user_path(@user.id),class: "btn btn-primary" %>
+        <%= link_to "Ville", city_path(City.find(@user.city_id).name), class: "btn btn-primary" %></p> 
+        <p class="lead">Contenu :</p>
+        <p><%= link_to "Editer", edit_gossip_path(@gossip.id), class: "btn btn-warning" %>
+        <%= link_to "Détruire", gossip_path(@gossip.id), method: :delete, class: "btn btn-danger" %><p>
+      </div>
+
+      <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 21px 21px;">
+        <p class="color-dark"><%= @gossip.content %> </p>
+      </div>
+</div>
+
+
+<div class="container-fluid bg-dark me-md-3 pt-3 px-3 pt-md-2 px-md-5 text-center overflow-hidden align-center">
+  <div class="my-3 py-3">
+    <h2 class="display-5 text-white">Comments</h2>
+    <% @comments.each do |comment|%>
+      <div class="card d-inline-flex my-2 col-lg-7 border-radius: 21px 21px 21px 21px;">
+        <div class="card-header">
+          <p> Auteur : <%= User.find(comment.user_id).first_name %></p>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><%= comment.content %></p>
+          <p><%= link_to "Edit", edit_comment_path(comment.id), class: "btn btn-primary btn-sm" %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="container-fluid bg-dark me-md-3 pt-3 px-3 pt-md-2 px-md-5 text-center overflow-hidden align-center">
+<h2 class="display-5 text-white">Create Comment</h2>
+<div class="container col-7">
+<%= form_with( url: comments_create_path, model: @comment, method: :post ) do |form| %>
+    <%= form.hidden_field :gossip_id, value: params[:id] %>
+    <div class="mb-3">
+      <%= form.label :comment_author, class: "form-label text-white" %>
+      <%= form.text_field :comment_author, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+    <%= form.label :content, class: "form-label text-light" %>
+    <%= form.text_field :content, class: "form-control" %>
+    </div>
+    <div class="mb-3">
+    <%= form.submit "Commenter", class: "btn btn-primary" %>
+    </div>
+  <% end%>
+  </div> 
+</div>
+
+
+  

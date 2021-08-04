@@ -1,0 +1,27 @@
+<div class="container-fluid bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+      <div class="my-3 py-3 text-white">
+        <h1 class="display-5">User : <%= @user.first_name %> <%= @user.last_name %></h1>
+        <p class="lead">Age : <%= @user.age %></p>
+        <p class="lead">eMail : <%= @user.email %></p>
+        <p><%= link_to "Ville : #{City.find(@user.city_id).name}", city_path(City.find(@user.city_id).name), class: "btn btn-primary" %></p>
+        <p class="lead">Description :</p>
+      </div>
+      <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 21px 21px;">
+        <p class="color-dark"><%= @user.description %></p>
+      </div>
+      <div class="container">
+        <h1 class="display-5">Ses Gossips</h1>
+      </div>  
+        <% Gossip.where(user_id: @user.id).each do |gossip| %>
+          <div class="card d-inline-flex my-2 col-lg-7 border-radius: 21px 21px 21px 21px;">
+            <div class="card-header">
+              <p> Titre : <%= gossip.title %></p>
+            </div>
+            <div class="card-body">
+              <p class="card-text"><%= gossip.content %></p>
+              <p>Lien vers le gossip : <%= link_to gossip.title.to_s, gossip_path(gossip.id), class: 'btn btn-primary' %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+</div>
