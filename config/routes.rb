@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   post 'comments/create', to: 'comments#create'
   put 'comments/:id', to: 'comments#update', as: 'update/comment'
   delete 'comments/:id', to: 'comments#destroy', as: 'destroy/comment'
+
+ 
+  resources :likes, only: [:create, :destroy]
   
+  resources :sessions, only: [:new, :create, :destroy]
+
   resources :team
 
   resources :gossip

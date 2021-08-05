@@ -12,6 +12,13 @@
       <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 21px 21px;">
         <p class="color-dark"><%= @gossip.content %> </p>
       </div>
+      <div class="container py-3">
+        <% if @like != nil %>
+          <p><%= link_to "Dislike", like_path(@like.id), class: "btn btn-danger", method: :delete %></p>
+        <% else %>
+          <p><%= link_to "Like", likes_path(gossip_id: @gossip.id), class: "btn btn-primary", method: :post %></p>
+        <% end %>
+      </div>
 </div>
 
 
@@ -25,7 +32,9 @@
         </div>
         <div class="card-body">
           <p class="card-text"><%= comment.content %></p>
+          <% if current_user == comment.user%>
           <p><%= link_to "Edit", edit_comment_path(comment.id), class: "btn btn-primary btn-sm" %></p>
+          <% end %>
         </div>
       </div>
     <% end %>
@@ -38,10 +47,6 @@
 <div class="container col-7">
 <%= form_with( url: comments_create_path, model: @comment, method: :post ) do |form| %>
     <%= form.hidden_field :gossip_id, value: params[:id] %>
-    <div class="mb-3">
-      <%= form.label :comment_author, class: "form-label text-white" %>
-      <%= form.text_field :comment_author, class: "form-control" %>
-    </div>
     <div class="mb-3">
     <%= form.label :content, class: "form-label text-light" %>
     <%= form.text_field :content, class: "form-control" %>
