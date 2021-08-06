@@ -14,7 +14,12 @@
         </div>
 
         <div class="mb-3">
-        <%= form.submit "Créer", class: "btn btn-primary" %>
+        <%= form.label :stay_connect, class: "form-label text-white" %>
+        <%= form.check_box :stay_connect %>        
+        </div>
+
+        <div class="mb-3">
+        <%= form.submit "Connection", class: "btn btn-primary" %>
         </div>
 
       <% end%>

@@ -4,20 +4,26 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:user][:email])
-    if user && user.authenticate(params[:user][:password])
-      session[:user_id] = user.id
+    @user = User.find_by(email: params[:user][:email])
+    if @user && @user.authenticate(params[:user][:password])
+      log_in(@user)
+      puts params[:user][:stay_connect]
+      if params[:user][:stay_connect] == 1
+        remember_him(@user)
+      end
       puts "***** Connection OK"
       redirect_to home_path
     else
       puts "***** Connection FAUX"
       #flash.now[:danger] = 'Invalid email/password combination'
-      render sessions_new_path
+      render new_session_path
     end
   end
 
   def destroy
-    session.delete(:user_id)
+    @user = current_user
+    log_out(@user)
     redirect_to home_path
   end
+  
 end

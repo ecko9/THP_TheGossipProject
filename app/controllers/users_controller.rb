@@ -18,7 +18,11 @@ class UsersController < ApplicationController
     if params[:user][:password] == params[:user][:password_confirm]
       @user = User.new(user_params)
       if @user.save
-        puts "******* user saved"
+        log_in(@user)
+        if params[:user][:stay_connect] == 1
+          remember_him(@user)
+        end
+        puts "******* user saved and connected"
         redirect_to user_path(@user.id)
       else
         puts "******* mauvais user"
